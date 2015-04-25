@@ -8,8 +8,8 @@ require_relative 'FixtureSet'
 require_relative 'Fixture'
 
 TABLE_SOURCE = "http://www.bbc.com/sport/football/tables"
-FIXTURE_SOURCE = "http://www.premierleague.com/en-gb/matchday/matches.html?\
-                  paramClubId=ALL&paramComp_8=true&view=.dateSeason"
+FIXTURE_SOURCE = URI.parse(URI.encode("http://www.premierleague.com/en-gb/matchday/matches.html?\
+                  paramClubId=ALL&paramComp_8=true&view=.dateSeason"))
 
 def readTable(leagueTable)
 
@@ -27,7 +27,7 @@ def readTable(leagueTable)
         scored = data[i].css("td.for").text
         conceded = data[i].css("td.against").text
 
-        aTeam = Team.new(NameResolver.instance.getName(name), points, played, won, 
+        aTeam = Team.new(NameResolver.instance.getName(name), points, played, won,
                          lost, drawn, scored, conceded)
         leagueTable.addTeam(aTeam)
 
@@ -35,7 +35,7 @@ def readTable(leagueTable)
 end
 
 def getRemainingFixtures(fixtureList)
-    page = Nokogiri::HTML(open(FIXTURE_SOURCE)) 
+    page = Nokogiri::HTML(open(FIXTURE_SOURCE))
     tables = page.css("table.contentTable")
 
     tables.each {
@@ -72,4 +72,3 @@ fixtureList.each {
     |fixture|
     puts "#{fixture.home}\t#{fixture.visitors}"
 }
-
