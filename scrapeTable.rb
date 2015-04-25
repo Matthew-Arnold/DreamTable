@@ -2,10 +2,11 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require_relative 'team'
+require_relative 'table'
 
 DATA_SOURCE = "http://www.bbc.com/sport/football/tables"
 
-def readTable
+def readTable(leagueTable)
 
     page = Nokogiri::HTML(open(DATA_SOURCE))
 
@@ -23,11 +24,8 @@ def readTable
 
         aTeam = Team.new(name, points, played, won, 
                          lost, drawn, scored, conceded)
-        aTeam.display
-
-        #puts "#{name}\t#{played} #{won} #{drawn} #{lost} #{scored} #{conceded} #{points}"
+        leagueTable.addTeam(aTeam)
 
     end
 end
 
-readTable
