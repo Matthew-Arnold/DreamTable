@@ -1,4 +1,4 @@
-require_relative 'scrapeTable'
+require_relative 'DataLoader'
 require_relative 'team'
 require_relative 'table'
 
