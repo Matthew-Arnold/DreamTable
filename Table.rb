@@ -23,5 +23,24 @@ class Table
             @teams.push(team)
         end
     end
+
+    def currentPosition(team)
+        @teams.each_index {|i| return i if @teams[i].name == team.name}
+    end
+
+    def reorderTable()
+        @teams = @teams.sort{|t1, t2| (t2.points <=> t1.points) == 0? \
+            t2.goalDif <=> t1.goalDif : t2.points <=> t1.points}
+    end
+
+    def getTeam(name)
+        for i in 0...@teams.size
+            if @teams[i].name == name
+                return@teams[i]
+            end
+        end
+
+        return false
+    end
 end
 

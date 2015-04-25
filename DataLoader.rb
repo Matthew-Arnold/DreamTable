@@ -21,6 +21,7 @@ def readTable(leagueTable)
         name = data[i]["data-team-slug"]
         points = data[i].css("td.points").text
         played = data[i].css("td.played").text
+        #puts "Played = #{played}"
         won = data[i].css("td.won").text
         drawn = data[i].css("td.drawn").text
         lost = data[i].css("td.lost").text
@@ -29,12 +30,14 @@ def readTable(leagueTable)
 
         aTeam = Team.new(NameResolver.instance.getName(name), points, played, won, 
                          lost, drawn, scored, conceded)
+        #print "Added team: "
+        #aTeam.display
         leagueTable.addTeam(aTeam)
 
     end
 end
 
-def getRemainingFixtures(fixtureList)
+def getRemainingFixtures(fixtureList, currentTable)
     page = Nokogiri::HTML(open(FIXTURE_SOURCE)) 
     tables = page.css("table.contentTable")
 
@@ -57,19 +60,13 @@ def getRemainingFixtures(fixtureList)
                 team1Name = NameResolver.instance.getName(theTeams[0].strip)
                 team2Name = NameResolver.instance.getName(theTeams[1].strip)
 
+                team1 = currentTable.getTeam(team1Name)
+                team2 = currentTable.getTeam(team2Name)
+
                 #puts "Adding fixture between #{team1Name} and #{team2Name}"
 
-                fixtureList.addFixture(Fixture.new(team1Name, team2Name))
+                fixtureList.addFixture(Fixture.new(team1, team2))
             }
         }
     }
 end
-
-fixtureList = FixtureSet.new
-getRemainingFixtures(fixtureList)
-
-fixtureList.each {
-    |fixture|
-    puts "#{fixture.home}\t#{fixture.visitors}"
-}
-

@@ -3,12 +3,13 @@ class Team
                   :conceded
     def initialize(name, points, played, won, lost, drawn, scored, conceded)
         @name = name
-        @points = points
-        @won = won
-        @lost = lost
-        @drawn = drawn
-        @scored = scored
-        @conceded = conceded
+        @played = Integer(played)
+        @points = Integer(points)
+        @won = Integer(won)
+        @lost = Integer(lost)
+        @drawn = Integer(drawn)
+        @scored = Integer(scored)
+        @conceded = Integer(conceded)
     end
 
     def goalDif
@@ -18,6 +19,18 @@ class Team
     def display
         print "#{@name}\t#{@played} #{@won} #{@drawn} #{@lost} #{@scored}"
         print " #{@conceded} #{goalDif} #{@points}\n"
+    end
+
+    def compare(other)
+        #puts "Compare #{@name} with #{other.name}"
+        result = other.points <=> @points
+=begin
+        if result == 0
+            thisDif = goalDif
+            result = other.goalDif <=> thisDif
+        end
+=end
+        #puts "Result is #{result}"
     end
 end
 

@@ -10,8 +10,24 @@ class Fixture
         @visitors = visitingTeam
     end
 
+    def self.incrementPlayed(homeGoals, awayGoals)
+        @home.played = Integer(@home.played) + 1 
+        @home.scored = Integer(@home.scored) + homeGoals
+        @home.conceded = Integer(@home.conceded) + awayGoals
+
+        @visitors.played = Integer(@visitors.played) + 1
+        @visitors.scored = Integer(@visitors.scored) + awayGoals
+        @visitors.conceded = Integer(@visitors.conceded) + homeGoals
+    end
+
     def homeWin(homeGoals = 1, awayGoals = 0)
-        self.incrementPlayed(homeGoals, awayGoals)
+        @home.played = Integer(@home.played) + 1 
+        @home.scored = Integer(@home.scored) + homeGoals
+        @home.conceded = Integer(@home.conceded) + awayGoals
+
+        @visitors.played = Integer(@visitors.played) + 1
+        @visitors.scored = Integer(@visitors.scored) + awayGoals
+        @visitors.conceded = Integer(@visitors.conceded) + homeGoals
         @home.won += 1
         @home.points += WIN_POINTS
 
@@ -20,7 +36,16 @@ class Fixture
     end
 
     def visitorsWin(homeGoals = 0, awayGoals = 1)
-        self.incrementPlayed(homeGoals, awayGoals)
+        #self.incrementPlayed(homeGoals, awayGoals)
+        #puts "Home is #{@home} and away is #{@visitors}"
+        #puts "@home.played = #{@home.played}"
+        @home.played = Integer(@home.played) + 1 
+        @home.scored = Integer(@home.scored) + homeGoals
+        @home.conceded = Integer(@home.conceded) + awayGoals
+
+        @visitors.played = Integer(@visitors.played) + 1
+        @visitors.scored = Integer(@visitors.scored) + awayGoals
+        @visitors.conceded = Integer(@visitors.conceded) + homeGoals
         @visitors.won += 1
         @visitors.points += WIN_POINTS
 
@@ -29,7 +54,13 @@ class Fixture
     end
 
     def draw(homeGoals = 0, awayGoals = 0)
-        self.incrementPlayed(homeGoals, awayGoals)
+        @home.played = Integer(@home.played) + 1 
+        @home.scored = Integer(@home.scored) + homeGoals
+        @home.conceded = Integer(@home.conceded) + awayGoals
+
+        @visitors.played = Integer(@visitors.played) + 1
+        @visitors.scored = Integer(@visitors.scored) + awayGoals
+        @visitors.conceded = Integer(@visitors.conceded) + homeGoals
         @home.drawn += 1
         @home.points += DRAW_POINTS
 
@@ -37,13 +68,4 @@ class Fixture
         @visitors.points += DRAW_POINTS
     end
 
-    def self.incrementPlayed(homeGoals, awayGoals)
-        @home.played += 1
-        @home.scored += homeGoals
-        @home.conceded += awayGoals
-
-        @visitors.played += 1
-        @visitors.scored += awayGoals
-        @visitors.conceded += homeGoals
-    end
 end
