@@ -58,5 +58,5 @@ def getRemainingFixtures(fixtureList)
     }
 end
 
-getRemainingFixtures
+#getRemainingFixtures
 
