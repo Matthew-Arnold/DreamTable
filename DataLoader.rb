@@ -3,6 +3,9 @@ require 'nokogiri'
 require 'open-uri'
 require_relative 'Team'
 require_relative 'Table'
+require_relative 'NameResolver'
+require_relative 'FixtureSet'
+require_relative 'Fixture'
 
 TABLE_SOURCE = "http://www.bbc.com/sport/football/tables"
 FIXTURE_SOURCE = "http://www.premierleague.com/en-gb/matchday/matches.html?\
@@ -24,7 +27,7 @@ def readTable(leagueTable)
         scored = data[i].css("td.for").text
         conceded = data[i].css("td.against").text
 
-        aTeam = Team.new(name, points, played, won, 
+        aTeam = Team.new(NameResolver.instance.getName(name), points, played, won, 
                          lost, drawn, scored, conceded)
         leagueTable.addTeam(aTeam)
 
@@ -48,15 +51,25 @@ def getRemainingFixtures(fixtureList)
             teams.each {
                 |matchTeams|
                 theTeams = matchTeams.split(" v ")
-                puts "Team1: #{theTeams[0]}\tTeam2: #{theTeams[1]}"
 
-                fixureList.addFixture(Fixture.new(theTeams[0], theTeams[1]))
+                #puts "1: #{theTeams[0]}\t2: #{theTeams[1]}"
+
+                team1Name = NameResolver.instance.getName(theTeams[0].strip)
+                team2Name = NameResolver.instance.getName(theTeams[1].strip)
+
+                #puts "Adding fixture between #{team1Name} and #{team2Name}"
+
+                fixtureList.addFixture(Fixture.new(team1Name, team2Name))
             }
-
         }
-
     }
 end
 
-#getRemainingFixtures
+fixtureList = FixtureSet.new
+getRemainingFixtures(fixtureList)
+
+fixtureList.each {
+    |fixture|
+    puts "#{fixture.home}\t#{fixture.visitors}"
+}
 
