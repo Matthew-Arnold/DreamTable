@@ -1,6 +1,6 @@
 require_relative 'DataLoader'
-require_relative 'team'
-require_relative 'table'
+require_relative 'Team'
+require_relative 'Table'
 
 TABLE_SIZE = 20
 
