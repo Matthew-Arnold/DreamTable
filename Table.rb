@@ -1,5 +1,5 @@
 require 'forwardable'
-require_relative 'team'
+require_relative 'Team'
 
 DEFAULT_NUMBER_OF_TEAMS = 20
 

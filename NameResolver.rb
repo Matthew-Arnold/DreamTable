@@ -25,6 +25,9 @@ class NameResolver
             "leicester-city" => "Leicester",
             "queens-park-rangers" => "QPR",
             "burnley" => "Burnley",
+            "afc-bournemouth" => "Bournemouth",
+            "norwich-city" => "Norwich",
+            "watford" => "Watford",
             "Southampton" => "Southampton",
             "Spurs" => "Tottenham",
             "Burnley" => "Burnley",
@@ -44,7 +47,10 @@ class NameResolver
             "Everton" => "Everton",
             "Man Utd" => "Man United",
             "Arsenal" => "Arsenal",
-            "Chelsea" => "Chelsea"
+            "Chelsea" => "Chelsea",
+            "Norwich" => "Norwich",
+            "Watford" => "Watford",
+            "Bournemouth" => "Bournemouth"
         }
     end
 

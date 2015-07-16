@@ -8,8 +8,7 @@ require_relative 'FixtureSet'
 require_relative 'Fixture'
 
 TABLE_SOURCE = "http://www.bbc.com/sport/football/tables"
-FIXTURE_SOURCE = "http://www.premierleague.com/en-gb/matchday/matches.html?\
-                  paramClubId=ALL&paramComp_8=true&view=.dateSeason"
+FIXTURE_SOURCE = "http://www.premierleague.com/en-gb/matchday/matches.html"
 
 def readTable(leagueTable)
 
